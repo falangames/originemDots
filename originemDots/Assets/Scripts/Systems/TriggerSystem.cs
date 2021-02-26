@@ -75,16 +75,14 @@ public class TriggerSystem : JobComponentSystem
                 entityCommandBuffer.DestroyEntity(entityB);
                 float3 a = GetStickLocationSystem.Instance.pos;
 
-                for (int i = 0; i < 10; i++)
+                for (int i = -10; i < 10; i++)
                 {
-                    for (int j = 0; j < 10; j++)
+                    for (int j = -10; j < 10; j++)
                     {
                         Entity entityr = entityCommandBuffer.Instantiate(GameManager.Instance.explosioonEntity);
-                        entityCommandBuffer.SetComponent(entityr, new Translation { Value = new float3(i * -0.02f, j * -0.02f, a.z) });
+                        entityCommandBuffer.SetComponent(entityr, new Translation { Value = new float3(i * -0.06f, j * -0.06f, a.z) });
                     }
                 }
-
-                //GameManager.Instance.spawnSphere(entityCommandBuffer);
             }
 
             else if (noneStickTag.HasComponent(entityA) && cubeTag.HasComponent(entityB))
