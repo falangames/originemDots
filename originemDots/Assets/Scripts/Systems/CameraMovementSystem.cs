@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class CameraMovementSystem : MonoBehaviour
 {
-    public float Speed = 5;
-    Vector3 pos;
+    public static CameraMovementSystem Instance;
 
+    public float Speed = 5;
+    public Vector3 pos;
+
+    public bool canMove = true;
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Update()
     {
-        pos = transform.position;
-        pos.z += Speed * Time.deltaTime;
-        transform.position = pos;
+        if (canMove)
+        {
+            pos = transform.position;
+            pos.z += Speed * Time.deltaTime;
+            transform.position = pos;
+        }
+        else
+        {
+            pos = new Vector3(0, 2.34f, -4.49f);
+            transform.position = pos;
+        }
     }
 }

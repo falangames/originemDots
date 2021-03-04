@@ -6,6 +6,8 @@ using Unity.Transforms;
 using Random = UnityEngine.Random;
 using Unity.Physics;
 using Unity.Collections;
+using UnityEngine.SceneManagement;
+using Unity.Scenes;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,9 +38,17 @@ public class GameManager : MonoBehaviour
     public GameObject explosionPrefab;
     public Entity explosioonEntity;
 
+
+    public GameObject InGamePanel;
+    public GameObject PausePanel;
+    public GameObject GameOverPanel;
+
     private void Start()
     {
         Instance = this;
+        InGamePanel.SetActive(true);
+        PausePanel.SetActive(false);
+        GameOverPanel.SetActive(false);
 
         entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
 
@@ -104,5 +114,46 @@ public class GameManager : MonoBehaviour
     {
         Entity cube = entityManager.Instantiate(entityCube4);
         entityManager.SetComponentData(cube, new Translation { Value = spawner.position });
+    }
+
+    private SceneSystem sceneSystem;
+    public void OnClick_ContinueButton()
+    {
+        //SceneManager.UnloadSceneAsync(2);
+        SceneManager.LoadSceneAsync(1);
+
+        
+        //InGamePanel.SetActive(true);
+        //PausePanel.SetActive(false);
+    }
+    public void OnClick_PauseButton()
+    {
+        //InGamePanel.SetActive(false);
+        //PausePanel.SetActive(true);
+        //Time.timeScale = 0;
+        SceneManager.UnloadSceneAsync(1);
+        //SceneManager.LoadSceneAsync(2);
+    }
+    public void OnClick_RestartButton()
+    {
+        /*SceneManager.LoadScene("MainScene");
+        InGamePanel.SetActive(true);
+        PausePanel.SetActive(false);
+        GameOverPanel.SetActive(false);*/
+
+        Time.timeScale = 1;
+    }
+    public void OnClick_AdButton()
+    {
+        
+    }
+    public void OnClick_MenuSceneButton()
+    {
+        Time.timeScale = 1;
+    }
+
+    public void UnloadSceneImmediate(Entity scene)
+    {
+        
     }
 }
